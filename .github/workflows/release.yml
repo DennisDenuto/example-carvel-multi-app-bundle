@@ -1,0 +1,42 @@
+on:
+  push:
+    tags: ["v*"]
+
+name: release
+
+jobs:
+
+  kbld-publish:
+    name: Release
+    runs-on: ubuntu-latest
+
+    # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
+    permissions:
+      id-token: write  # undocumented OIDC support.
+      packages: write
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+      - uses: sigstore/cosign-installer@main
+      - name: login
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $(echo ${{ github.actor }} | awk '{print tolower($0)}') --password-stdin
+      - name: install carvel
+        run: curl -L https://carvel.dev/install.sh | bash
+      - name: build and sign bundle
+        run: |
+          set -e -x
+          export COSIGN_EXPERIMENTAL=1
+          tag_name="${GITHUB_REF##*/}"
+          imgpkg push -b "ghcr.io/dennisdenuto/test-carvel-complex-bundle:${tag_name}" -f .
+          cosign sign -a git_sha=$GITHUB_SHA "ghcr.io/dennisdenuto/test-carvel-complex-bundle:${tag_name}"
+      - name: Create Release
+        run: |
+          set -x
+          tag_name="${GITHUB_REF##*/}"
+          hub release create -m "ghcr.io/dennisdenuto/test-carvel-complex-bundle:${tag_name}" "$tag_name"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
