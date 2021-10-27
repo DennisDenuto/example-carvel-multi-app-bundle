@@ -1,0 +1,11 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - githubRelease:
+      url: https://api.github.com/repos/DennisDenuto/example-carvel-app/releases/52180050
+    path: example-carvel-app
+  - githubRelease:
+      url: https://api.github.com/repos/DennisDenuto/example-carvel-complex-app/releases/52185935
+    path: example-carvel-complex-app
+  path: config
+kind: LockConfig

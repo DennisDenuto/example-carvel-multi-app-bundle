@@ -1,0 +1,10 @@
+---
+apiVersion: imgpkg.carvel.dev/v1alpha1
+images:
+- annotations:
+    kbld.carvel.dev/id: ghcr.io/dennisdenuto/hello-world-carvel-complex-app-gh@sha256:c0306b34088483f8728b5933d1cda31cbd0ed89ed93e8cc33a7e535d50d74741
+  image: ghcr.io/dennisdenuto/hello-world-carvel-complex-app-gh@sha256:c0306b34088483f8728b5933d1cda31cbd0ed89ed93e8cc33a7e535d50d74741
+- annotations:
+    kbld.carvel.dev/id: ghcr.io/dennisdenuto/hello-world-carvel-gh@sha256:828f9ee48600000d43c713757252a651c11cdbc0f14774e934f86dde9001a6c6
+  image: ghcr.io/dennisdenuto/hello-world-carvel-gh@sha256:828f9ee48600000d43c713757252a651c11cdbc0f14774e934f86dde9001a6c6
+kind: ImagesLock

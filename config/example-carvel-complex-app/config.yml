@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kbld.k14s.io/images: |
+      - origins:
+        - local:
+            path: /home/runner/work/example-carvel-complex-app/example-carvel-complex-app
+        - git:
+            dirty: true
+            remoteURL: https://github.com/DennisDenuto/example-carvel-complex-app
+            sha: eed8d1776bc0c693d43697524d8e191a4a2c8754
+            tags:
+            - v0.0.1
+        url: ghcr.io/dennisdenuto/hello-world-carvel-complex-app-gh@sha256:c0306b34088483f8728b5933d1cda31cbd0ed89ed93e8cc33a7e535d50d74741
+  name: carvel-test-complex-app
+spec:
+  containers:
+  - image: ghcr.io/dennisdenuto/hello-world-carvel-complex-app-gh@sha256:c0306b34088483f8728b5933d1cda31cbd0ed89ed93e8cc33a7e535d50d74741
+    imagePullPolicy: Always
+    name: carvel-test-complex-app

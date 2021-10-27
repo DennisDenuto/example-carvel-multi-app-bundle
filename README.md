@@ -1,1 +1,1 @@
-# example-carvel-multi-app-bundle
+# example-carvel-app-bundle

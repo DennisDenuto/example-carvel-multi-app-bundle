@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kbld.k14s.io/images: |
+      - origins:
+        - local:
+            path: /home/runner/work/example-carvel-app/example-carvel-app
+        - git:
+            dirty: true
+            remoteURL: https://github.com/DennisDenuto/example-carvel-app
+            sha: 9cb53d55ee51e656cddb029d969931b479934c15
+            tags:
+            - v0.0.2
+        url: ghcr.io/dennisdenuto/hello-world-carvel-gh@sha256:828f9ee48600000d43c713757252a651c11cdbc0f14774e934f86dde9001a6c6
+  name: imgpkg-test
+spec:
+  containers:
+  - image: ghcr.io/dennisdenuto/hello-world-carvel-gh@sha256:828f9ee48600000d43c713757252a651c11cdbc0f14774e934f86dde9001a6c6
+    imagePullPolicy: Always
+    name: imgpkg-test
